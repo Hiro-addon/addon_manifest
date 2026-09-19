@@ -12,10 +12,21 @@ background:#101114;
 color:#f4f4f5;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
-.container{max-width:900px;margin:auto;padding:20px}
-header{margin-bottom:20px}
-h1{margin:0 0 6px;font-size:28px}
-.subtitle{color:#9ca3af}
+.container{
+max-width:900px;
+margin:auto;
+padding:20px
+}
+header{
+margin-bottom:20px
+}
+h1{
+margin:0 0 6px;
+font-size:28px
+}
+.subtitle{
+color:#9ca3af
+}
 .card{
 background:#191b20;
 border:1px solid #2a2d34;
@@ -23,7 +34,10 @@ border-radius:16px;
 padding:18px;
 margin-bottom:16px
 }
-h2{font-size:18px;margin:0 0 15px}
+h2{
+font-size:18px;
+margin:0 0 15px
+}
 .grid{
 display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
@@ -45,13 +59,17 @@ padding:11px;
 font-size:15px;
 outline:none
 }
-input:focus,select:focus{border-color:#7180ff}
+input:focus,select:focus{
+border-color:#7180ff
+}
 .choice{
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:10px
 }
-.choice input{display:none}
+.choice input{
+display:none
+}
 .choice label{
 margin:0;
 border:1px solid #353942;
@@ -78,7 +96,9 @@ cursor:pointer
 width:18px;
 height:18px
 }
-.hidden{display:none}
+.hidden{
+display:none
+}
 .buttons{
 display:flex;
 gap:10px;
@@ -93,8 +113,12 @@ cursor:pointer;
 background:#6573ff;
 color:white
 }
-button.secondary{background:#2b2e36}
-button:active{transform:scale(.98)}
+button.secondary{
+background:#2b2e36
+}
+button:active{
+transform:scale(.98)
+}
 pre{
 margin:0;
 background:#0b0c0f;
@@ -107,15 +131,16 @@ word-break:break-word;
 font-size:13px;
 line-height:1.55
 }
-.notice{
-font-size:13px;
-color:#9ca3af;
-margin-top:8px
-}
 @media(max-width:650px){
-.grid,.choice{grid-template-columns:1fr}
-.container{padding:14px}
-h1{font-size:24px}
+.grid,.choice{
+grid-template-columns:1fr
+}
+.container{
+padding:14px
+}
+h1{
+font-size:24px
+}
 }
 </style>
 </head>
@@ -144,10 +169,6 @@ h1{font-size:24px}
 <input type="radio" id="both" name="packType" value="both">
 <label for="both">BP ＋ RP</label>
 
-</div>
-
-<div class="notice">
-「BP ＋ RP」を選択すると、BPとRPのManifestを両方生成します。
 </div>
 
 </section>
@@ -232,35 +253,6 @@ h1{font-size:24px}
 
 <section class="card">
 
-<h2>リソースパックとの接続</h2>
-
-<div class="choice">
-
-<input type="radio" id="connectNo" name="connect" value="no" checked>
-<label for="connectNo">接続しない</label>
-
-<input type="radio" id="connectYes" name="connect" value="yes">
-<label for="connectYes">接続する</label>
-
-</div>
-
-<div id="connectSettings" class="hidden">
-
-<br>
-
-<label for="rpName">リソースパック名</label>
-<input id="rpName" value="My Addon RP">
-
-<div class="notice">
-接続するとBPとRPのUUIDを自動生成し、BPからRPへの依存関係を追加します。
-</div>
-
-</div>
-
-</section>
-
-<section class="card">
-
 <h2>生成</h2>
 
 <div class="buttons">
@@ -302,13 +294,20 @@ return value.split(".").map(v=>parseInt(v)||0);
 function generate(){
 
 const packType=document.querySelector('input[name="packType"]:checked').value;
+
 const useScript=document.querySelector('input[name="script"]:checked').value==="yes";
-const connect=document.querySelector('input[name="connect"]:checked').value==="yes";
 
 const name=document.getElementById("name").value;
+
 const description=document.getElementById("description").value;
-const version=versionArray(document.getElementById("version").value);
-const engine=versionArray(document.getElementById("engine").value);
+
+const version=versionArray(
+document.getElementById("version").value
+);
+
+const engine=versionArray(
+document.getElementById("engine").value
+);
 
 const bpUUID=uuid();
 const bpModuleUUID=uuid();
@@ -316,10 +315,17 @@ const bpModuleUUID=uuid();
 const rpUUID=uuid();
 const rpModuleUUID=uuid();
 
-const serverVersion=document.getElementById("serverVersion").value;
-const serverUI=document.getElementById("serverUi").checked;
-const uiVersion=document.getElementById("uiVersion").value;
-const entry=document.getElementById("entry").value;
+const serverVersion=
+document.getElementById("serverVersion").value;
+
+const serverUI=
+document.getElementById("serverUi").checked;
+
+const uiVersion=
+document.getElementById("uiVersion").value;
+
+const entry=
+document.getElementById("entry").value;
 
 let result={};
 
@@ -327,6 +333,7 @@ if(packType==="bp"||packType==="both"){
 
 const bpModules=[
 {
+"description":description,
 "type":"data",
 "uuid":bpModuleUUID,
 "version":version
@@ -338,6 +345,7 @@ const bpDependencies=[];
 if(useScript){
 
 bpModules.push({
+"description":"Script",
 "type":"script",
 "language":"javascript",
 "uuid":uuid(),
@@ -361,7 +369,7 @@ bpDependencies.push({
 
 }
 
-if(connect&&packType==="both"){
+if(packType==="both"){
 
 bpDependencies.push({
 "uuid":rpUUID,
@@ -372,18 +380,22 @@ bpDependencies.push({
 
 const bpManifest={
 "format_version":2,
+
 "header":{
-"name":name+" BP",
+"name":name,
 "description":description,
 "uuid":bpUUID,
 "version":version,
 "min_engine_version":engine
 },
+
 "modules":bpModules
 };
 
 if(bpDependencies.length>0){
+
 bpManifest.dependencies=bpDependencies;
+
 }
 
 result.behavior_pack=bpManifest;
@@ -392,23 +404,43 @@ result.behavior_pack=bpManifest;
 
 if(packType==="rp"||packType==="both"){
 
+const rpDependencies=[];
+
+if(packType==="both"){
+
+rpDependencies.push({
+"uuid":bpUUID,
+"version":version
+});
+
+}
+
 const rpManifest={
 "format_version":2,
+
 "header":{
-"name":connect?document.getElementById("rpName").value:name+" RP",
+"name":name,
 "description":description,
 "uuid":rpUUID,
 "version":version,
 "min_engine_version":engine
 },
+
 "modules":[
 {
+"description":"Resources",
 "type":"resources",
 "uuid":rpModuleUUID,
 "version":version
 }
 ]
 };
+
+if(rpDependencies.length>0){
+
+rpManifest.dependencies=rpDependencies;
+
+}
 
 result.resource_pack=rpManifest;
 
@@ -424,7 +456,9 @@ JSON.stringify(result,null,2);
 function copyJSON(){
 
 if(!generatedData){
+
 generate();
+
 }
 
 navigator.clipboard.writeText(
@@ -436,29 +470,41 @@ JSON.stringify(generatedData,null,2)
 function downloadJSON(){
 
 if(!generatedData){
+
 generate();
+
 }
 
 const blob=new Blob(
-[JSON.stringify(generatedData,null,2)],
-{type:"application/json"}
+[
+JSON.stringify(generatedData,null,2)
+],
+{
+type:"application/json"
+}
 );
 
 const a=document.createElement("a");
 
 a.href=URL.createObjectURL(blob);
+
 a.download="manifest.json";
+
 a.click();
 
 URL.revokeObjectURL(a.href);
 
 }
 
-document.querySelectorAll('input[name="script"]').forEach(el=>{
+document.querySelectorAll(
+'input[name="script"]'
+).forEach(el=>{
 
 el.addEventListener("change",()=>{
 
-document.getElementById("scriptSettings").classList.toggle(
+document
+.getElementById("scriptSettings")
+.classList.toggle(
 "hidden",
 el.value!=="yes"
 );
@@ -467,25 +513,16 @@ el.value!=="yes"
 
 });
 
-document.getElementById("serverUi").addEventListener("change",function(){
+document
+.getElementById("serverUi")
+.addEventListener("change",function(){
 
-document.getElementById("uiVersionBox").classList.toggle(
+document
+.getElementById("uiVersionBox")
+.classList.toggle(
 "hidden",
 !this.checked
 );
-
-});
-
-document.querySelectorAll('input[name="connect"]').forEach(el=>{
-
-el.addEventListener("change",()=>{
-
-document.getElementById("connectSettings").classList.toggle(
-"hidden",
-el.value!=="yes"
-);
-
-});
 
 });
 
