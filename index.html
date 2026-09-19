@@ -334,6 +334,22 @@ function getValue(id,defaultValue){
   return value||defaultValue;
 }
 
+function getVersion(id,defaultValue){
+  const input=document.getElementById(id);
+  const value=input.value.trim();
+
+  if(!value){
+    return defaultValue;
+  }
+
+  if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+    input.value="";
+    return defaultValue;
+  }
+
+  return value;
+}
+
 function versionArray(value){
   return value.split(".").map(v=>{
     const n=parseInt(v,10);
@@ -396,14 +412,14 @@ function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
     manifest.dependencies=[
       {
         module_name:"@minecraft/server",
-        version:getServerVersion()
+        version:versionArray(getVersion("serverVersion","1.15.0"))
       }
     ];
 
     if(uiCheck.checked){
       manifest.dependencies.push({
         module_name:"@minecraft/server-ui",
-        version:getUiVersion()
+        version:versionArray(getVersion("uiVersion","1.1.0"))
       });
     }
   }
@@ -456,16 +472,6 @@ function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
   return manifest;
 }
 
-function getServerVersion(){
-  const value=document.getElementById("serverVersion").value.trim();
-  return versionArray(value||"1.15.0");
-}
-
-function getUiVersion(){
-  const value=document.getElementById("uiVersion").value.trim();
-  return versionArray(value||"1.1.0");
-}
-
 function createResult(title,data){
   const box=document.createElement("div");
   box.className="result-box";
@@ -505,8 +511,9 @@ function createResult(title,data){
 document.getElementById("generate").onclick=()=>{
   const name=getValue("name","アドオン名");
   const description=getValue("description","アドオン説明文");
-  const version=getValue("version","1.0.0");
-  const engine=getValue("engine","1.20.0");
+
+  const version=getVersion("version","1.0.0");
+  const engine=getVersion("engine","1.20.0");
 
   const result=document.getElementById("result");
   result.innerHTML="";
