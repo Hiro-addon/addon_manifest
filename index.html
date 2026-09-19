@@ -5,271 +5,117 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hiro Addon Tools</title>
 <style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  background:#111;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:24px 16px 50px;
-}
-
-h1{
-  margin:0;
-  font-size:28px;
-}
-
-.subtitle{
-  margin:6px 0 28px;
-  color:#888;
-}
-
-.section{
-  background:#1a1a1a;
-  border:1px solid #292929;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:16px;
-}
-
-.section h2{
-  margin:0 0 16px;
-  font-size:18px;
-}
-
-label{
-  display:block;
-  margin-bottom:7px;
-  color:#bbb;
-  font-size:14px;
-}
-
-input{
-  width:100%;
-  padding:12px 14px;
-  border-radius:9px;
-  border:1px solid #333;
-  background:#111;
-  color:#fff;
-  outline:none;
-  font-size:15px;
-}
-
-input:focus{
-  border-color:#666;
-}
-
-input::placeholder{
-  color:#777;
-  opacity:.55;
-}
-
-.field{
-  margin-bottom:15px;
-}
-
-.field:last-child{
-  margin-bottom:0;
-}
-
-.choice{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.choice button,
-.script-choice button{
-  padding:13px 10px;
-  border:1px solid #333;
-  border-radius:10px;
-  background:#111;
-  color:#aaa;
-  cursor:pointer;
-  font-size:14px;
-}
-
-.choice button.active,
-.script-choice button.active{
-  background:#fff;
-  color:#111;
-  border-color:#fff;
-}
-
-.script-choice{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-bottom:16px;
-}
-
-.generate{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:10px;
-  background:#fff;
-  color:#111;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.result{
-  margin-top:16px;
-}
-
-.result-box{
-  background:#0d0d0d;
-  border:1px solid #292929;
-  border-radius:12px;
-  overflow:hidden;
-  margin-bottom:16px;
-}
-
-.result-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 14px;
-  border-bottom:1px solid #292929;
-  font-weight:bold;
-}
-
-.copy-btn{
-  padding:7px 12px;
-  border:1px solid #444;
-  border-radius:7px;
-  background:#1a1a1a;
-  color:#fff;
-  cursor:pointer;
-  font-size:12px;
-}
-
-.copy-btn:hover{
-  background:#252525;
-}
-
-pre{
-  margin:0;
-  padding:15px;
-  overflow-x:auto;
-  white-space:pre-wrap;
-  word-break:break-word;
-  color:#ddd;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.hidden{
-  display:none;
-}
-
-@media(max-width:650px){
-  .choice{
-    grid-template-columns:1fr;
-  }
-
-  .script-choice{
-    grid-template-columns:1fr;
-  }
-
-  h1{
-    font-size:24px;
-  }
-}
+*{box-sizing:border-box;}
+body{margin:0;background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.container{max-width:900px;margin:auto;padding:24px 16px 50px;}
+h1{margin:0;font-size:28px;}
+.subtitle{margin:6px 0 28px;color:#888;}
+.section{background:#1a1a1a;border:1px solid #292929;border-radius:14px;padding:18px;margin-bottom:16px;}
+.section h2{margin:0 0 16px;font-size:18px;}
+label{display:block;margin-bottom:7px;color:#bbb;font-size:14px;}
+input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid #333;background:#111;color:#fff;outline:none;font-size:15px;}
+input:focus{border-color:#666;}
+input::placeholder{color:#777;opacity:.55;}
+.field{margin-bottom:15px;}
+.field:last-child{margin-bottom:0;}
+.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.choice button,.script-choice button{padding:13px 10px;border:1px solid #333;border-radius:10px;background:#111;color:#aaa;cursor:pointer;font-size:14px;}
+.choice button.active,.script-choice button.active{background:#fff;color:#111;border-color:#fff;}
+.script-choice{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.generate{width:100%;padding:14px;border:0;border-radius:10px;background:#fff;color:#111;font-size:16px;font-weight:bold;cursor:pointer;}
+.result{margin-top:16px;}
+.result-box{background:#0d0d0d;border:1px solid #292929;border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.result-title{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #292929;font-weight:bold;}
+.copy-btn{padding:7px 12px;border:1px solid #444;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:12px;}
+.copy-btn:hover{background:#252525;}
+pre{margin:0;padding:15px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;color:#ddd;font-size:13px;line-height:1.6;}
+.hidden{display:none;}
+@media(max-width:650px){.choice{grid-template-columns:1fr;}.script-choice{grid-template-columns:1fr;}h1{font-size:24px;}}
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <h1>Hiro Addon Tools</h1>
-  <div class="subtitle">Minecraft Bedrock Addon Manifest Generator</div>
+<h1>Hiro Addon Tools</h1>
+<div class="subtitle">Minecraft Bedrock Addon Manifest Generator</div>
 
-  <div class="section">
-    <h2>パックタイプ</h2>
+<div class="section">
+<h2>パックタイプ</h2>
+<div class="choice">
+<button id="bpBtn" class="active">ビヘイビアパック</button>
+<button id="rpBtn">リソースパック</button>
+<button id="bothBtn">BP ＋ RP</button>
+</div>
+</div>
 
-    <div class="choice">
-      <button id="bpBtn" class="active">ビヘイビアパック</button>
-      <button id="rpBtn">リソースパック</button>
-      <button id="bothBtn">BP ＋ RP</button>
-    </div>
-  </div>
+<div class="section">
+<h2>基本設定</h2>
 
-  <div class="section">
-    <h2>基本設定</h2>
+<div class="field">
+<label>アドオン名</label>
+<input id="name" type="text" placeholder="アドオン名">
+</div>
 
-    <div class="field">
-      <label>アドオン名</label>
-      <input id="name" type="text" placeholder="アドオン名">
-    </div>
+<div class="field">
+<label>説明文</label>
+<input id="description" type="text" placeholder="アドオン説明文">
+</div>
 
-    <div class="field">
-      <label>説明文</label>
-      <input id="description" type="text" placeholder="アドオン説明文">
-    </div>
+<div class="field">
+<label>アドオンのバージョン</label>
+<input id="version" type="text" placeholder="1.0.0">
+</div>
 
-    <div class="field">
-      <label>アドオンのバージョン</label>
-      <input id="version" type="text" placeholder="1.0.0">
-    </div>
+<div class="field">
+<label>最低Minecraftバージョン</label>
+<input id="engine" type="text" placeholder="1.20.0">
+</div>
 
-    <div class="field">
-      <label>最低Minecraftバージョン</label>
-      <input id="engine" type="text" placeholder="1.20.0">
-    </div>
-  </div>
+</div>
 
-  <div class="section" id="scriptSection">
-    <h2>スクリプト</h2>
+<div class="section" id="scriptSection">
 
-    <div class="script-choice">
-      <button id="scriptOffBtn" class="active">使用しない</button>
-      <button id="scriptOnBtn">使用する</button>
-    </div>
+<h2>スクリプト</h2>
 
-    <div id="scriptSettings" class="hidden">
+<div class="script-choice">
+<button id="scriptOffBtn" class="active">使用しない</button>
+<button id="scriptOnBtn">使用する</button>
+</div>
 
-      <div class="field">
-        <label>エントリーファイル</label>
-        <input id="entry" type="text" placeholder="main.js">
-      </div>
+<div id="scriptSettings" class="hidden">
 
-      <div class="field">
-        <label>@minecraft/server バージョン</label>
-        <input id="serverVersion" type="text" placeholder="1.15.0">
-      </div>
+<div class="field">
+<label>エントリーファイル</label>
+<input id="entry" type="text" placeholder="main.js">
+</div>
 
-      <div class="field">
-        <label>@minecraft/server-ui</label>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <input id="uiCheck" type="checkbox" style="width:18px;height:18px;">
-          <span style="color:#aaa;font-size:14px;">使用する</span>
-        </div>
-      </div>
+<div class="field">
+<label>@minecraft/server バージョン</label>
+<input id="serverVersion" type="text" placeholder="2.7.0">
+</div>
 
-      <div class="field hidden" id="uiVersionField">
-        <label>@minecraft/server-ui バージョン</label>
-        <input id="uiVersion" type="text" placeholder="1.1.0">
-      </div>
+<div class="field">
+<label>@minecraft/server-ui</label>
+<div style="display:flex;align-items:center;gap:10px;">
+<input id="uiCheck" type="checkbox" style="width:18px;height:18px;">
+<span style="color:#aaa;font-size:14px;">使用する</span>
+</div>
+</div>
 
-    </div>
-  </div>
+<div class="field hidden" id="uiVersionField">
+<label>@minecraft/server-ui バージョン</label>
+<input id="uiVersion" type="text" placeholder="1.1.0">
+</div>
 
-  <div class="section">
-    <button class="generate" id="generate">Manifestを生成</button>
-  </div>
+</div>
+</div>
 
-  <div class="result" id="result"></div>
+<div class="section">
+<button class="generate" id="generate">Manifestを生成</button>
+</div>
+
+<div class="result" id="result"></div>
 
 </div>
 
@@ -342,7 +188,27 @@ function getVersion(id,defaultValue){
     return defaultValue;
   }
 
-  if(!/^[0-9]+(\.[0-9]+)*(?:-[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
+  if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+    input.value="";
+    return defaultValue;
+  }
+
+  return value;
+}
+
+function getScriptVersion(id,defaultValue){
+  const input=document.getElementById(id);
+  const value=input.value.trim();
+
+  if(!value){
+    return defaultValue;
+  }
+
+  if(value==="beta"){
+    return value;
+  }
+
+  if(!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
     input.value="";
     return defaultValue;
   }
@@ -351,14 +217,9 @@ function getVersion(id,defaultValue){
 }
 
 function versionArray(value){
-  const parts=value.split(".");
-
-  return parts.map(part=>{
-    if(/^\d+$/.test(part)){
-      return Number(part);
-    }
-
-    return part;
+  return value.split(".").map(v=>{
+    const n=parseInt(v,10);
+    return Number.isNaN(n)?0:n;
   });
 }
 
@@ -381,6 +242,7 @@ function uuid(){
 }
 
 function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
+
   const bpModuleUuid=uuid();
 
   const manifest={
@@ -403,6 +265,7 @@ function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
   };
 
   if(useScript){
+
     const scriptUuid=uuid();
 
     manifest.modules.push({
@@ -417,19 +280,22 @@ function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
     manifest.dependencies=[
       {
         module_name:"@minecraft/server",
-        version:versionArray(getVersion("serverVersion","1.15.0"))
+        version:getScriptVersion("serverVersion","2.7.0")
       }
     ];
 
     if(uiCheck.checked){
+
       manifest.dependencies.push({
         module_name:"@minecraft/server-ui",
-        version:versionArray(getVersion("uiVersion","1.1.0"))
+        version:getScriptVersion("uiVersion","1.1.0")
       });
+
     }
   }
 
   if(rpUuid){
+
     if(!manifest.dependencies){
       manifest.dependencies=[];
     }
@@ -438,12 +304,14 @@ function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
       uuid:rpUuid,
       version:versionArray(version)
     });
+
   }
 
   return manifest;
 }
 
 function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
+
   const rpModuleUuid=uuid();
 
   const manifest={
@@ -466,18 +334,21 @@ function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
   };
 
   if(bpUuid){
+
     manifest.dependencies=[
       {
         uuid:bpUuid,
         version:versionArray(version)
       }
     ];
+
   }
 
   return manifest;
 }
 
 function createResult(title,data){
+
   const box=document.createElement("div");
   box.className="result-box";
 
@@ -492,7 +363,9 @@ function createResult(title,data){
   copy.textContent="コピー";
 
   const pre=document.createElement("pre");
+
   const text=JSON.stringify(data,null,2);
+
   pre.textContent=text;
 
   copy.onclick=async()=>{
@@ -514,16 +387,18 @@ function createResult(title,data){
 }
 
 document.getElementById("generate").onclick=()=>{
+
   const name=getValue("name","アドオン名");
   const description=getValue("description","アドオン説明文");
-
   const version=getVersion("version","1.0.0");
   const engine=getVersion("engine","1.20.0");
 
   const result=document.getElementById("result");
+
   result.innerHTML="";
 
   if(packType==="bp"){
+
     const bpUuid=uuid();
 
     const bp=createBehaviorManifest(
@@ -538,9 +413,11 @@ document.getElementById("generate").onclick=()=>{
     result.appendChild(
       createResult("ビヘイビアパック",bp)
     );
+
   }
 
   if(packType==="rp"){
+
     const rpUuid=uuid();
 
     const rp=createResourceManifest(
@@ -555,9 +432,11 @@ document.getElementById("generate").onclick=()=>{
     result.appendChild(
       createResult("リソースパック",rp)
     );
+
   }
 
   if(packType==="both"){
+
     const bpUuid=uuid();
     const rpUuid=uuid();
 
@@ -586,7 +465,9 @@ document.getElementById("generate").onclick=()=>{
     result.appendChild(
       createResult("リソースパック",rp)
     );
+
   }
+
 };
 </script>
 
