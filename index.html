@@ -2,971 +2,580 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hiro Addon Tools</title>
-
 <style>
 *{
-box-sizing:border-box
+  box-sizing:border-box;
 }
 
 body{
-margin:0;
-background:#101114;
-color:#f4f4f5;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+  margin:0;
+  background:#111;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 .container{
-max-width:900px;
-margin:auto;
-padding:20px
-}
-
-header{
-margin-bottom:20px
+  max-width:900px;
+  margin:auto;
+  padding:24px 16px 50px;
 }
 
 h1{
-margin:0 0 6px;
-font-size:28px
+  margin:0;
+  font-size:28px;
 }
 
 .subtitle{
-color:#9ca3af
+  margin:6px 0 28px;
+  color:#888;
 }
 
-.card{
-background:#191b20;
-border:1px solid #2a2d34;
-border-radius:16px;
-padding:18px;
-margin-bottom:16px
+.section{
+  background:#1a1a1a;
+  border:1px solid #292929;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
 }
 
-h2{
-font-size:18px;
-margin:0 0 15px
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:12px
+.section h2{
+  margin:0 0 16px;
+  font-size:18px;
 }
 
 label{
-display:block;
-color:#c9cbd1;
-font-size:14px;
-margin-bottom:6px
+  display:block;
+  margin-bottom:7px;
+  color:#bbb;
+  font-size:14px;
 }
 
 input{
-width:100%;
-border:1px solid #353942;
-background:#101216;
-color:#fff;
-border-radius:10px;
-padding:11px;
-font-size:15px;
-outline:none
+  width:100%;
+  padding:12px 14px;
+  border-radius:9px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+  outline:none;
+  font-size:15px;
 }
 
 input:focus{
-border-color:#7180ff
+  border-color:#666;
+}
+
+input::placeholder{
+  color:#777;
+  opacity:.55;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field:last-child{
+  margin-bottom:0;
 }
 
 .choice{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.choice button,
+.script-choice button{
+  padding:13px 10px;
+  border:1px solid #333;
+  border-radius:10px;
+  background:#111;
+  color:#aaa;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.choice button.active,
+.script-choice button.active{
+  background:#fff;
+  color:#111;
+  border-color:#fff;
 }
 
 .script-choice{
-grid-template-columns:repeat(2,1fr)
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:16px;
 }
 
-.choice input{
-display:none
+.generate{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#fff;
+  color:#111;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.choice label{
-margin:0;
-border:1px solid #353942;
-border-radius:11px;
-padding:12px;
-text-align:center;
-cursor:pointer;
-background:#111318
+.result{
+  margin-top:16px;
 }
 
-.choice input:checked+label{
-border-color:#7180ff;
-background:#222743;
-color:#fff
+.result-box{
+  background:#0d0d0d;
+  border:1px solid #292929;
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:16px;
 }
 
-.check{
-display:flex;
-align-items:center;
-gap:10px;
-margin:12px 0;
-color:#ddd;
-cursor:pointer
+.result-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 14px;
+  border-bottom:1px solid #292929;
+  font-weight:bold;
 }
 
-.check input{
-width:18px;
-height:18px
+.copy-btn{
+  padding:7px 12px;
+  border:1px solid #444;
+  border-radius:7px;
+  background:#1a1a1a;
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
 }
 
-.hidden{
-display:none
-}
-
-.buttons{
-display:flex;
-gap:10px;
-flex-wrap:wrap
-}
-
-button{
-border:0;
-border-radius:10px;
-padding:12px 17px;
-font-weight:700;
-cursor:pointer;
-background:#6573ff;
-color:white
-}
-
-button.secondary{
-background:#2b2e36
-}
-
-button:active{
-transform:scale(.98)
+.copy-btn:hover{
+  background:#252525;
 }
 
 pre{
-margin:0;
-background:#0b0c0f;
-border:1px solid #292c33;
-border-radius:12px;
-padding:15px;
-overflow:auto;
-white-space:pre-wrap;
-word-break:break-word;
-font-size:13px;
-line-height:1.55
+  margin:0;
+  padding:15px;
+  overflow-x:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+  color:#ddd;
+  font-size:13px;
+  line-height:1.6;
 }
 
-.manifest-title{
-font-size:14px;
-font-weight:700;
-margin:18px 0 8px
-}
-
-.manifest-title:first-child{
-margin-top:0
+.hidden{
+  display:none;
 }
 
 @media(max-width:650px){
+  .choice{
+    grid-template-columns:1fr;
+  }
 
-.grid{
-grid-template-columns:1fr
-}
+  .script-choice{
+    grid-template-columns:1fr;
+  }
 
-.choice{
-grid-template-columns:1fr
-}
-
-.script-choice{
-grid-template-columns:1fr
-}
-
-.container{
-padding:14px
-}
-
-h1{
-font-size:24px
-}
-
+  h1{
+    font-size:24px;
+  }
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<header>
-<h1>Hiro Addon Tools</h1>
-<div class="subtitle">Minecraft Bedrock Addon Manifest Generator</div>
-</header>
-
-<section class="card">
-
-<h2>パック構成</h2>
-
-<div class="choice">
-
-<input
-type="radio"
-id="bpOnly"
-name="packType"
-value="bp"
-checked
->
-
-<label for="bpOnly">
-ビヘイビアパック
-</label>
-
-<input
-type="radio"
-id="rpOnly"
-name="packType"
-value="rp"
->
-
-<label for="rpOnly">
-リソースパック
-</label>
-
-<input
-type="radio"
-id="both"
-name="packType"
-value="both"
->
-
-<label for="both">
-BP ＋ RP
-</label>
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>基本設定</h2>
-
-<div class="grid">
-
-<div>
-
-<label for="name">
-アドオン名
-</label>
-
-<input
-id="name"
-value="テスト"
->
-
-</div>
-
-<div>
-
-<label for="description">
-説明
-</label>
-
-<input
-id="description"
-value="テスト"
->
-
-</div>
-
-<div>
-
-<label for="version">
-バージョン
-</label>
-
-<input
-id="version"
-value="1.0.0"
->
-
-</div>
-
-<div>
-
-<label for="engine">
-最低Minecraftバージョン
-</label>
-
-<input
-id="engine"
-value="1.20.0"
->
-
-</div>
-
-</div>
-
-</section>
-
-<section
-class="card"
-id="scriptCard"
->
-
-<h2>スクリプト</h2>
-
-<div class="choice script-choice">
-
-<input
-type="radio"
-id="scriptNo"
-name="script"
-value="no"
-checked
->
-
-<label for="scriptNo">
-使用しない
-</label>
-
-<input
-type="radio"
-id="scriptYes"
-name="script"
-value="yes"
->
-
-<label for="scriptYes">
-使用する
-</label>
-
-</div>
-
-<div
-id="scriptSettings"
-class="hidden"
->
-
-<br>
-
-<div class="grid">
-
-<div>
-
-<label for="serverVersion">
-@minecraft/server
-</label>
-
-<input
-id="serverVersion"
-value="1.15.0"
->
-
-</div>
-
-<div>
-
-<label for="entry">
-エントリーファイル
-</label>
-
-<input
-id="entry"
-value="scripts/main.js"
->
-
-</div>
-
-</div>
-
-<label class="check">
-
-<input
-type="checkbox"
-id="serverUi"
->
-
-<span>
-@minecraft/server-ui を使用する
-</span>
-
-</label>
-
-<div
-id="uiVersionBox"
-class="hidden"
->
-
-<label for="uiVersion">
-@minecraft/server-ui バージョン
-</label>
-
-<input
-id="uiVersion"
-value="1.1.0"
->
-
-</div>
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>生成</h2>
-
-<div class="buttons">
-
-<button onclick="generate()">
-Manifest生成
-</button>
-
-<button
-class="secondary"
-onclick="copyJSON()"
->
-コピー
-</button>
-
-<button
-class="secondary"
-onclick="downloadJSON()"
->
-JSONダウンロード
-</button>
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>プレビュー</h2>
-
-<div id="output">
-ここに生成されたManifestが表示されます。
-</div>
-
-</section>
+  <h1>Hiro Addon Tools</h1>
+  <div class="subtitle">Minecraft Bedrock Addon Manifest Generator</div>
+
+  <div class="section">
+    <h2>パックタイプ</h2>
+
+    <div class="choice">
+      <button id="bpBtn" class="active">ビヘイビアパック</button>
+      <button id="rpBtn">リソースパック</button>
+      <button id="bothBtn">BP ＋ RP</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>基本設定</h2>
+
+    <div class="field">
+      <label>アドオン名</label>
+      <input id="name" type="text" placeholder="アドオン名">
+    </div>
+
+    <div class="field">
+      <label>説明文</label>
+      <input id="description" type="text" placeholder="アドオン説明文">
+    </div>
+
+    <div class="field">
+      <label>アドオンのバージョン</label>
+      <input id="version" type="text" placeholder="1.0.0">
+    </div>
+
+    <div class="field">
+      <label>最低Minecraftバージョン</label>
+      <input id="engine" type="text" placeholder="1.20.0">
+    </div>
+  </div>
+
+  <div class="section" id="scriptSection">
+    <h2>スクリプト</h2>
+
+    <div class="script-choice">
+      <button id="scriptOffBtn" class="active">使用しない</button>
+      <button id="scriptOnBtn">使用する</button>
+    </div>
+
+    <div id="scriptSettings" class="hidden">
+
+      <div class="field">
+        <label>エントリーファイル</label>
+        <input id="entry" type="text" placeholder="空欄なら main.js">
+      </div>
+
+      <div class="field">
+        <label>@minecraft/server バージョン</label>
+        <input id="serverVersion" type="text" placeholder="1.15.0">
+      </div>
+
+      <div class="field">
+        <label>@minecraft/server-ui</label>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <input id="uiCheck" type="checkbox" style="width:18px;height:18px;">
+          <span style="color:#aaa;font-size:14px;">使用する</span>
+        </div>
+      </div>
+
+      <div class="field hidden" id="uiVersionField">
+        <label>@minecraft/server-ui バージョン</label>
+        <input id="uiVersion" type="text" placeholder="1.1.0">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <button class="generate" id="generate">Manifestを生成</button>
+  </div>
+
+  <div class="result" id="result"></div>
 
 </div>
 
 <script>
+let packType="bp";
+let useScript=false;
 
-let generatedData=null;
+const bpBtn=document.getElementById("bpBtn");
+const rpBtn=document.getElementById("rpBtn");
+const bothBtn=document.getElementById("bothBtn");
 
-function uuid(){
+const scriptSection=document.getElementById("scriptSection");
+const scriptOffBtn=document.getElementById("scriptOffBtn");
+const scriptOnBtn=document.getElementById("scriptOnBtn");
+const scriptSettings=document.getElementById("scriptSettings");
 
-return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-/[xy]/g,
-function(c){
+const uiCheck=document.getElementById("uiCheck");
+const uiVersionField=document.getElementById("uiVersionField");
 
-const r=Math.random()*16|0;
+function setPackType(type){
+  packType=type;
 
-const v=c==="x"
-?r
-:(r&0x3|0x8);
+  bpBtn.classList.toggle("active",type==="bp");
+  rpBtn.classList.toggle("active",type==="rp");
+  bothBtn.classList.toggle("active",type==="both");
 
-return v.toString(16);
-
+  if(type==="rp"){
+    scriptSection.classList.add("hidden");
+    useScript=false;
+    scriptOffBtn.classList.add("active");
+    scriptOnBtn.classList.remove("active");
+    scriptSettings.classList.add("hidden");
+  }else{
+    scriptSection.classList.remove("hidden");
+  }
 }
-);
 
+bpBtn.onclick=()=>setPackType("bp");
+rpBtn.onclick=()=>setPackType("rp");
+bothBtn.onclick=()=>setPackType("both");
+
+scriptOffBtn.onclick=()=>{
+  useScript=false;
+  scriptOffBtn.classList.add("active");
+  scriptOnBtn.classList.remove("active");
+  scriptSettings.classList.add("hidden");
+};
+
+scriptOnBtn.onclick=()=>{
+  useScript=true;
+  scriptOffBtn.classList.remove("active");
+  scriptOnBtn.classList.add("active");
+  scriptSettings.classList.remove("hidden");
+};
+
+uiCheck.onchange=()=>{
+  uiVersionField.classList.toggle("hidden",!uiCheck.checked);
+};
+
+function getValue(id,defaultValue){
+  const value=document.getElementById(id).value.trim();
+  return value||defaultValue;
 }
 
 function versionArray(value){
-
-return value
-.split(".")
-.map(v=>parseInt(v)||0);
-
+  return value.split(".").map(v=>{
+    const n=parseInt(v,10);
+    return Number.isNaN(n)?0:n;
+  });
 }
 
-function updateScriptVisibility(){
+function getEntry(){
+  let entry=document.getElementById("entry").value.trim();
 
-const packType=
-document.querySelector(
-'input[name="packType"]:checked'
-).value;
+  if(!entry){
+    return "main.js";
+  }
 
-const scriptCard=
-document.getElementById("scriptCard");
+  if(!entry.endsWith(".js")){
+    entry+=".js";
+  }
 
-if(packType==="rp"){
-
-scriptCard.classList.add("hidden");
-
-}else{
-
-scriptCard.classList.remove("hidden");
-
+  return entry;
 }
 
+function uuid(){
+  return crypto.randomUUID();
 }
 
-function generate(){
+function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
+  const bpModuleUuid=uuid();
 
-const packType=
-document.querySelector(
-'input[name="packType"]:checked'
-).value;
+  const manifest={
+    format_version:2,
+    header:{
+      name:name,
+      description:description,
+      uuid:bpUuid,
+      version:versionArray(version),
+      min_engine_version:versionArray(engine)
+    },
+    modules:[
+      {
+        description:description,
+        type:"data",
+        uuid:bpModuleUuid,
+        version:versionArray(version)
+      }
+    ]
+  };
 
-const useScript=
-document.querySelector(
-'input[name="script"]:checked'
-).value==="yes";
+  if(useScript){
+    const scriptUuid=uuid();
 
-const name=
-document.getElementById("name").value;
+    manifest.modules.push({
+      description:"Script",
+      type:"script",
+      language:"javascript",
+      uuid:scriptUuid,
+      version:versionArray(version),
+      entry:getEntry()
+    });
 
-const description=
-document.getElementById("description").value;
+    manifest.dependencies=[
+      {
+        module_name:"@minecraft/server",
+        version:getServerVersion()
+      }
+    ];
 
-const version=
-versionArray(
-document.getElementById("version").value
-);
+    if(uiCheck.checked){
+      manifest.dependencies.push({
+        module_name:"@minecraft/server-ui",
+        version:getUiVersion()
+      });
+    }
+  }
 
-const engine=
-versionArray(
-document.getElementById("engine").value
-);
+  if(rpUuid){
+    if(!manifest.dependencies){
+      manifest.dependencies=[];
+    }
 
-const bpUUID=uuid();
+    manifest.dependencies.unshift({
+      uuid:rpUuid,
+      version:versionArray(version)
+    });
+  }
 
-const bpModuleUUID=uuid();
-
-const rpUUID=uuid();
-
-const rpModuleUUID=uuid();
-
-const serverVersion=
-document.getElementById("serverVersion").value;
-
-const serverUI=
-document.getElementById("serverUi").checked;
-
-const uiVersion=
-document.getElementById("uiVersion").value;
-
-const entry=
-document.getElementById("entry").value;
-
-const result={};
-
-if(
-packType==="bp" ||
-packType==="both"
-){
-
-const bpModules=[
-{
-"description":description,
-"type":"data",
-"uuid":bpModuleUUID,
-"version":[...version]
-}
-];
-
-const bpDependencies=[];
-
-if(useScript){
-
-bpModules.push({
-
-"description":"Script",
-
-"type":"script",
-
-"language":"javascript",
-
-"uuid":uuid(),
-
-"version":[...version],
-
-"entry":entry
-
-});
-
-bpDependencies.push({
-
-"module_name":"@minecraft/server",
-
-"version":serverVersion
-
-});
-
-if(serverUI){
-
-bpDependencies.push({
-
-"module_name":"@minecraft/server-ui",
-
-"version":uiVersion
-
-});
-
+  return manifest;
 }
 
+function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
+  const rpModuleUuid=uuid();
+
+  const manifest={
+    format_version:2,
+    header:{
+      name:name,
+      description:description,
+      uuid:rpUuid,
+      version:versionArray(version),
+      min_engine_version:versionArray(engine)
+    },
+    modules:[
+      {
+        description:"Resources",
+        type:"resources",
+        uuid:rpModuleUuid,
+        version:versionArray(version)
+      }
+    ]
+  };
+
+  if(bpUuid){
+    manifest.dependencies=[
+      {
+        uuid:bpUuid,
+        version:versionArray(version)
+      }
+    ];
+  }
+
+  return manifest;
 }
 
-if(packType==="both"){
-
-bpDependencies.push({
-
-"uuid":rpUUID,
-
-"version":[...version]
-
-});
-
+function getServerVersion(){
+  const value=document.getElementById("serverVersion").value.trim();
+  return versionArray(value||"1.15.0");
 }
 
-const bpManifest={
+function getUiVersion(){
+  const value=document.getElementById("uiVersion").value.trim();
+  return versionArray(value||"1.1.0");
+}
 
-"format_version":2,
+function createResult(title,data){
+  const box=document.createElement("div");
+  box.className="result-box";
 
-"header":{
+  const titleBar=document.createElement("div");
+  titleBar.className="result-title";
 
-"name":name,
+  const titleText=document.createElement("span");
+  titleText.textContent=title;
 
-"description":description,
+  const copy=document.createElement("button");
+  copy.className="copy-btn";
+  copy.textContent="コピー";
 
-"uuid":bpUUID,
+  const pre=document.createElement("pre");
+  const text=JSON.stringify(data,null,2);
+  pre.textContent=text;
 
-"version":[...version],
+  copy.onclick=async()=>{
+    await navigator.clipboard.writeText(text);
+    copy.textContent="コピーしました";
 
-"min_engine_version":[...engine]
+    setTimeout(()=>{
+      copy.textContent="コピー";
+    },1500);
+  };
 
-},
+  titleBar.appendChild(titleText);
+  titleBar.appendChild(copy);
 
-"modules":bpModules
+  box.appendChild(titleBar);
+  box.appendChild(pre);
 
+  return box;
+}
+
+document.getElementById("generate").onclick=()=>{
+  const name=getValue("name","アドオン名");
+  const description=getValue("description","アドオン説明文");
+  const version=getValue("version","1.0.0");
+  const engine=getValue("engine","1.20.0");
+
+  const result=document.getElementById("result");
+  result.innerHTML="";
+
+  if(packType==="bp"){
+    const bpUuid=uuid();
+
+    const bp=createBehaviorManifest(
+      name,
+      description,
+      version,
+      engine,
+      bpUuid,
+      null
+    );
+
+    result.appendChild(
+      createResult("ビヘイビアパック",bp)
+    );
+  }
+
+  if(packType==="rp"){
+    const rpUuid=uuid();
+
+    const rp=createResourceManifest(
+      name,
+      description,
+      version,
+      engine,
+      rpUuid,
+      null
+    );
+
+    result.appendChild(
+      createResult("リソースパック",rp)
+    );
+  }
+
+  if(packType==="both"){
+    const bpUuid=uuid();
+    const rpUuid=uuid();
+
+    const bp=createBehaviorManifest(
+      name,
+      description,
+      version,
+      engine,
+      bpUuid,
+      rpUuid
+    );
+
+    const rp=createResourceManifest(
+      name,
+      description,
+      version,
+      engine,
+      rpUuid,
+      bpUuid
+    );
+
+    result.appendChild(
+      createResult("ビヘイビアパック",bp)
+    );
+
+    result.appendChild(
+      createResult("リソースパック",rp)
+    );
+  }
 };
-
-if(bpDependencies.length>0){
-
-bpManifest.dependencies=
-bpDependencies;
-
-}
-
-result.behavior_pack=
-bpManifest;
-
-}
-
-if(
-packType==="rp" ||
-packType==="both"
-){
-
-const rpModules=[
-
-{
-
-"description":"Resources",
-
-"type":"resources",
-
-"uuid":rpModuleUUID,
-
-"version":[...version]
-
-}
-
-];
-
-const rpDependencies=[];
-
-if(packType==="both"){
-
-rpDependencies.push({
-
-"uuid":bpUUID,
-
-"version":[...version]
-
-});
-
-}
-
-const rpManifest={
-
-"format_version":2,
-
-"header":{
-
-"name":name,
-
-"description":description,
-
-"uuid":rpUUID,
-
-"version":[...version],
-
-"min_engine_version":[...engine]
-
-},
-
-"modules":rpModules
-
-};
-
-if(rpDependencies.length>0){
-
-rpManifest.dependencies=
-rpDependencies;
-
-}
-
-result.resource_pack=
-rpManifest;
-
-}
-
-generatedData=result;
-
-renderOutput();
-
-}
-
-function renderOutput(){
-
-const output=
-document.getElementById("output");
-
-output.innerHTML="";
-
-if(generatedData.behavior_pack){
-
-const title=
-document.createElement("div");
-
-title.className="manifest-title";
-
-title.textContent=
-"ビヘイビアパック manifest.json";
-
-output.appendChild(title);
-
-const pre=
-document.createElement("pre");
-
-pre.textContent=
-JSON.stringify(
-generatedData.behavior_pack,
-null,
-2
-);
-
-output.appendChild(pre);
-
-}
-
-if(generatedData.resource_pack){
-
-const title=
-document.createElement("div");
-
-title.className="manifest-title";
-
-title.textContent=
-"リソースパック manifest.json";
-
-output.appendChild(title);
-
-const pre=
-document.createElement("pre");
-
-pre.textContent=
-JSON.stringify(
-generatedData.resource_pack,
-null,
-2
-);
-
-output.appendChild(pre);
-
-}
-
-}
-
-function copyJSON(){
-
-if(!generatedData){
-
-generate();
-
-}
-
-let text="";
-
-if(generatedData.behavior_pack){
-
-text+=
-JSON.stringify(
-generatedData.behavior_pack,
-null,
-2
-);
-
-}
-
-if(generatedData.resource_pack){
-
-if(text){
-
-text+="\n\n";
-
-}
-
-text+=
-JSON.stringify(
-generatedData.resource_pack,
-null,
-2
-);
-
-}
-
-navigator.clipboard.writeText(text);
-
-}
-
-function downloadJSON(){
-
-if(!generatedData){
-
-generate();
-
-}
-
-if(generatedData.behavior_pack){
-
-downloadFile(
-"manifest_bp.json",
-JSON.stringify(
-generatedData.behavior_pack,
-null,
-2
-)
-);
-
-}
-
-if(generatedData.resource_pack){
-
-setTimeout(()=>{
-
-downloadFile(
-"manifest_rp.json",
-JSON.stringify(
-generatedData.resource_pack,
-null,
-2
-)
-);
-
-},200);
-
-}
-
-}
-
-function downloadFile(filename,text){
-
-const blob=
-new Blob(
-[text],
-{
-type:"application/json"
-}
-);
-
-const url=
-URL.createObjectURL(blob);
-
-const a=
-document.createElement("a");
-
-a.href=url;
-
-a.download=filename;
-
-document.body.appendChild(a);
-
-a.click();
-
-a.remove();
-
-URL.revokeObjectURL(url);
-
-}
-
-document
-.querySelectorAll(
-'input[name="packType"]'
-)
-.forEach(el=>{
-
-el.addEventListener(
-"change",
-()=>{
-
-updateScriptVisibility();
-
-}
-);
-
-});
-
-document
-.querySelectorAll(
-'input[name="script"]'
-)
-.forEach(el=>{
-
-el.addEventListener(
-"change",
-()=>{
-
-document
-.getElementById("scriptSettings")
-.classList.toggle(
-"hidden",
-el.value!=="yes"
-);
-
-}
-);
-
-});
-
-document
-.getElementById("serverUi")
-.addEventListener(
-"change",
-function(){
-
-document
-.getElementById("uiVersionBox")
-.classList.toggle(
-"hidden",
-!this.checked
-);
-
-}
-);
-
-updateScriptVisibility();
-
 </script>
 
 </body>
