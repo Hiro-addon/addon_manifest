@@ -361,13 +361,6 @@ function versionArray(value){
     return part;
   });
 }
-  
-function versionArray(value){
-  return value.split(".").map(v=>{
-    const n=parseInt(v,10);
-    return Number.isNaN(n)?0:n;
-  });
-}
 
 function getEntry(){
   let entry=document.getElementById("entry").value.trim();
