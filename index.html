@@ -342,7 +342,7 @@ function getVersion(id,defaultValue){
     return defaultValue;
   }
 
-  if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+  if(!/^[0-9]+(\.[0-9]+)*(?:-[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
     input.value="";
     return defaultValue;
   }
@@ -350,6 +350,18 @@ function getVersion(id,defaultValue){
   return value;
 }
 
+function versionArray(value){
+  const parts=value.split(".");
+
+  return parts.map(part=>{
+    if(/^\d+$/.test(part)){
+      return Number(part);
+    }
+
+    return part;
+  });
+}
+  
 function versionArray(value){
   return value.split(".").map(v=>{
     const n=parseInt(v,10);
