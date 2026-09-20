@@ -2,8 +2,9 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>&#72;&#105;&#114;&#111;&#32;&#65;&#100;&#100;&#111;&#110;&#32;&#84;&#111;&#111;&#108;&#115;</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiro Addon Tools</title>
+
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
@@ -16,102 +17,473 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Hiro Addon Tools">
 <meta name="theme-color" content="#111111">
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.container{max-width:900px;margin:auto;padding:24px 16px 50px}
-h1{margin:0;font-size:28px}
-.subtitle{margin:6px 0 28px;color:#888}
-.section{background:#1a1a1a;border:1px solid #292929;border-radius:14px;padding:18px;margin-bottom:16px}
-.section h2{margin:0 0 16px;font-size:18px}
-label{display:block;margin-bottom:7px;color:#bbb;font-size:14px}
-input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid #333;background:#111;color:#fff;outline:none;font-size:15px}
-input:focus{border-color:#666}
-input::placeholder{color:#777;opacity:.55}
-.field{margin-bottom:15px}
-.field:last-child{margin-bottom:0}
-.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.choice button,.script-choice button{padding:13px 10px;border:1px solid #333;border-radius:10px;background:#111;color:#aaa;cursor:pointer;font-size:14px}
-.choice button.active,.script-choice button.active{background:#fff;color:#111;border-color:#fff}
-.script-choice{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
-.generate{width:100%;padding:14px;border:0;border-radius:10px;background:#fff;color:#111;font-size:16px;font-weight:bold;cursor:pointer}
-.result{margin-top:16px}
-.result-box{background:#0d0d0d;border:1px solid #292929;border-radius:12px;overflow:hidden;margin-bottom:16px}
-.result-title{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #292929;font-weight:bold}
-.copy-btn{padding:7px 12px;border:1px solid #444;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:12px}
-.copy-btn:hover{background:#252525}
-pre{margin:0;padding:15px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;color:#ddd;font-size:13px;line-height:1.6}
-.hidden{display:none}
-@media(max-width:650px){.choice{grid-template-columns:1fr}.script-choice{grid-template-columns:1fr}h1{font-size:24px}}
+*{box-sizing:border-box;}
+body{margin:0;background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.container{max-width:900px;margin:auto;padding:24px 16px 50px;}
+h1{margin:0;font-size:28px;}
+.subtitle{margin:6px 0 28px;color:#888;}
+.section{background:#1a1a1a;border:1px solid #292929;border-radius:14px;padding:18px;margin-bottom:16px;}
+.section h2{margin:0 0 16px;font-size:18px;}
+label{display:block;margin-bottom:7px;color:#bbb;font-size:14px;}
+input{width:100%;padding:12px 14px;border-radius:9px;border:1px solid #333;background:#111;color:#fff;outline:none;font-size:15px;}
+input:focus{border-color:#666;}
+input::placeholder{color:#777;opacity:.55;}
+.field{margin-bottom:15px;}
+.field:last-child{margin-bottom:0;}
+.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.choice button,.script-choice button{padding:13px 10px;border:1px solid #333;border-radius:10px;background:#111;color:#aaa;cursor:pointer;font-size:14px;}
+.choice button.active,.script-choice button.active{background:#fff;color:#111;border-color:#fff;}
+.script-choice{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.generate{width:100%;padding:14px;border:0;border-radius:10px;background:#fff;color:#111;font-size:16px;font-weight:bold;cursor:pointer;}
+.result{margin-top:16px;}
+.result-box{background:#0d0d0d;border:1px solid #292929;border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.result-title{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #292929;font-weight:bold;}
+.copy-btn{padding:7px 12px;border:1px solid #444;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;font-size:12px;}
+.copy-btn:hover{background:#252525;}
+pre{margin:0;padding:15px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;color:#ddd;font-size:13px;line-height:1.6;}
+.hidden{display:none;}
+@media(max-width:650px){.choice{grid-template-columns:1fr;}.script-choice{grid-template-columns:1fr;}h1{font-size:24px;}}
 </style>
 </head>
 <body>
+
 <div class="container">
-<h1>&#72;&#105;&#114;&#111;&#32;&#65;&#100;&#100;&#111;&#110;&#32;&#84;&#111;&#111;&#108;&#115;</h1>
-<div class="subtitle">&#77;&#105;&#110;&#101;&#99;&#114;&#97;&#102;&#116;&#32;&#66;&#101;&#100;&#114;&#111;&#99;&#107;&#32;&#65;&#100;&#100;&#111;&#110;&#32;&#77;&#97;&#110;&#105;&#102;&#101;&#115;&#116;&#32;&#71;&#101;&#110;&#101;&#114;&#97;&#116;&#111;&#114;</div>
+
+<h1>Hiro Addon Tools</h1>
+<div class="subtitle">Minecraft Bedrock Addon Manifest Generator</div>
+
 <div class="section">
-<h2>&#12497;&#12483;&#12463;&#12479;&#12452;&#12503;</h2>
+<h2>パックタイプ</h2>
 <div class="choice">
-<button id="bpBtn" class="active">&#12499;&#12504;&#12452;&#12499;&#12450;&#12497;&#12483;&#12463;</button>
-<button id="rpBtn">&#12522;&#12477;&#12540;&#12473;&#12497;&#12483;&#12463;</button>
-<button id="bothBtn">&#66;&#80;&#32;&#65291;&#32;&#82;&#80;</button>
+<button id="bpBtn" class="active">ビヘイビアパック</button>
+<button id="rpBtn">リソースパック</button>
+<button id="bothBtn">BP ＋ RP</button>
 </div>
 </div>
+
 <div class="section">
-<h2>&#22522;&#26412;&#35373;&#23450;</h2>
+<h2>基本設定</h2>
+
 <div class="field">
-<label>&#12450;&#12489;&#12458;&#12531;&#21517;</label>
+<label>アドオン名</label>
 <input id="name" type="text" placeholder="アドオン名">
 </div>
+
 <div class="field">
-<label>&#35500;&#26126;&#25991;</label>
+<label>説明文</label>
 <input id="description" type="text" placeholder="アドオン説明文">
 </div>
+
 <div class="field">
-<label>&#12450;&#12489;&#12458;&#12531;&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;</label>
+<label>アドオンのバージョン</label>
 <input id="version" type="text" placeholder="1.0.0">
 </div>
+
 <div class="field">
-<label>&#26368;&#20302;&#77;&#105;&#110;&#101;&#99;&#114;&#97;&#102;&#116;&#12496;&#12540;&#12472;&#12519;&#12531;</label>
+<label>最低Minecraftバージョン</label>
 <input id="engine" type="text" placeholder="1.20.0">
 </div>
+
 </div>
+
 <div class="section" id="scriptSection">
-<h2>&#12473;&#12463;&#12522;&#12503;&#12488;</h2>
+
+<h2>スクリプト</h2>
+
 <div class="script-choice">
-<button id="scriptOffBtn" class="active">&#20351;&#29992;&#12375;&#12394;&#12356;</button>
-<button id="scriptOnBtn">&#20351;&#29992;&#12377;&#12427;</button>
+<button id="scriptOffBtn" class="active">使用しない</button>
+<button id="scriptOnBtn">使用する</button>
 </div>
+
 <div id="scriptSettings" class="hidden">
+
 <div class="field">
-<label>&#12456;&#12531;&#12488;&#12522;&#12540;&#12501;&#12449;&#12452;&#12523;</label>
+<label>エントリーファイル</label>
 <input id="entry" type="text" placeholder="main.js">
 </div>
+
 <div class="field">
-<label>&#64;&#109;&#105;&#110;&#101;&#99;&#114;&#97;&#102;&#116;&#47;&#115;&#101;&#114;&#118;&#101;&#114;&#32;&#12496;&#12540;&#12472;&#12519;&#12531;</label>
+<label>@minecraft/server バージョン</label>
 <input id="serverVersion" type="text" placeholder="2.7.0">
 </div>
+
 <div class="field">
-<label>&#64;&#109;&#105;&#110;&#101;&#99;&#114;&#97;&#102;&#116;&#47;&#115;&#101;&#114;&#118;&#101;&#114;&#45;&#117;&#105;</label>
+<label>@minecraft/server-ui</label>
 <div style="display:flex;align-items:center;gap:10px;">
 <input id="uiCheck" type="checkbox" style="width:18px;height:18px;">
-<span style="color:#aaa;font-size:14px;">&#20351;&#29992;&#12377;&#12427;</span>
+<span style="color:#aaa;font-size:14px;">使用する</span>
 </div>
 </div>
+
 <div class="field hidden" id="uiVersionField">
-<label>&#64;&#109;&#105;&#110;&#101;&#99;&#114;&#97;&#102;&#116;&#47;&#115;&#101;&#114;&#118;&#101;&#114;&#45;&#117;&#105;&#32;&#12496;&#12540;&#12472;&#12519;&#12531;</label>
+<label>@minecraft/server-ui バージョン</label>
 <input id="uiVersion" type="text" placeholder="1.1.0">
 </div>
+
 </div>
 </div>
+
 <div class="section">
-<button class="generate" id="generate">&#77;&#97;&#110;&#105;&#102;&#101;&#115;&#116;&#12434;&#29983;&#25104;</button>
+<button class="generate" id="generate">Manifestを生成</button>
 </div>
+
 <div class="result" id="result"></div>
+
 </div>
 
 <script>
-const _0x108d7c=_0x566a;function _0x105e(){const _0x18f43b=['XDSol','bpBtn','fxlpQ','JkMQO','@minecraft/server-ui','UekqG','SRJbi','scriptOnBtn','WkUbQ','data','active','obmcF','getElementById','script','add','bothBtn','pre','LOkFK','1239704yEuYNJ','HEYEE','FAISo','mFXsF','2.7.0','name','onclick','.js','span','className','PqSzI','Cyetw','tTwjW','lgbNM','アドオン説明文','63ctpWDn','onchange','main.js','toggle','lSqnH','10XXzjZp','ZRiWP','2291736KIAsbM','classList','ビヘイビアパック','uiCheck','hidden','description','PNEHr','split','vZrjf','entry','jmnfI','kurWF','HUjPo','@minecraft/server','map','trim','randomUUID','uiVersionField','createElement','engine','dCkKi','10389141OaQYQJ','unshift','924834HaIOLH','scriptSection','push','1314313eYGqoX','clipboard','scriptOffBtn','EyXVT','wvkpb','value','modules','version','kvxUk','iMhxj','scriptSettings','HicKv','isNaN','コピー','LZflC','test','75508TZCjwZ','Resources','textContent','appendChild','TTtPl','rpBtn','CwJjZ','1.1.0','button','both','innerHTML','remove','stringify','beta','リソースパック','コピーしました','rEIfg','Script','rliQI','copy-btn','8HHTRus','641640EQEZJO','dependencies','アドオン名','IGDja','vTNwD'];_0x105e=function(){return _0x18f43b;};return _0x105e();}(function(_0x18475a,_0x31f3ec){const _0x4edc39=_0x566a,_0x5c02d3=_0x18475a();while(!![]){try{const _0x596202=parseInt(_0x4edc39(0x1b9))/0x1+-parseInt(_0x4edc39(0x1f5))/0x2+-parseInt(_0x4edc39(0x19f))/0x3+-parseInt(_0x4edc39(0x1c9))/0x4*(-parseInt(_0x4edc39(0x19d))/0x5)+-parseInt(_0x4edc39(0x1b6))/0x6+-parseInt(_0x4edc39(0x1b4))/0x7*(-parseInt(_0x4edc39(0x1dd))/0x8)+-parseInt(_0x4edc39(0x204))/0x9*(parseInt(_0x4edc39(0x1de))/0xa);if(_0x596202===_0x31f3ec)break;else _0x5c02d3['push'](_0x5c02d3['shift']());}catch(_0x29f420){_0x5c02d3['push'](_0x5c02d3['shift']());}}}(_0x105e,0xcf51b));let packType='bp',useScript=![];const bpBtn=document[_0x108d7c(0x1ef)](_0x108d7c(0x1e4)),rpBtn=document[_0x108d7c(0x1ef)](_0x108d7c(0x1ce)),bothBtn=document['getElementById'](_0x108d7c(0x1f2)),scriptSection=document['getElementById'](_0x108d7c(0x1b7)),scriptOffBtn=document['getElementById'](_0x108d7c(0x1bb)),scriptOnBtn=document[_0x108d7c(0x1ef)](_0x108d7c(0x1ea)),scriptSettings=document[_0x108d7c(0x1ef)](_0x108d7c(0x1c3)),uiCheck=document[_0x108d7c(0x1ef)](_0x108d7c(0x1a2)),uiVersionField=document[_0x108d7c(0x1ef)](_0x108d7c(0x1b0));function setPackType(_0x475245){const _0x55ec6e=_0x108d7c,_0xc3523={'LOkFK':'active','FAISo':'both','mFXsF':'hidden'};packType=_0x475245,bpBtn['classList'][_0x55ec6e(0x19b)](_0xc3523[_0x55ec6e(0x1f4)],_0x475245==='bp'),rpBtn[_0x55ec6e(0x1a0)][_0x55ec6e(0x19b)](_0xc3523[_0x55ec6e(0x1f4)],_0x475245==='rp'),bothBtn['classList'][_0x55ec6e(0x19b)](_0xc3523[_0x55ec6e(0x1f4)],_0x475245===_0xc3523[_0x55ec6e(0x1f7)]),_0x475245==='rp'?(scriptSection[_0x55ec6e(0x1a0)][_0x55ec6e(0x1f1)](_0xc3523[_0x55ec6e(0x1f8)]),useScript=![],scriptOffBtn['classList'][_0x55ec6e(0x1f1)](_0x55ec6e(0x1ed)),scriptOnBtn[_0x55ec6e(0x1a0)][_0x55ec6e(0x1d4)](_0x55ec6e(0x1ed)),scriptSettings[_0x55ec6e(0x1a0)][_0x55ec6e(0x1f1)](_0xc3523[_0x55ec6e(0x1f8)])):scriptSection[_0x55ec6e(0x1a0)][_0x55ec6e(0x1d4)](_0x55ec6e(0x1a3));}bpBtn[_0x108d7c(0x1fb)]=()=>setPackType('bp'),rpBtn[_0x108d7c(0x1fb)]=()=>setPackType('rp'),bothBtn[_0x108d7c(0x1fb)]=()=>setPackType(_0x108d7c(0x1d2)),scriptOffBtn['onclick']=()=>{const _0x209d68=_0x108d7c,_0x7735fb={'hsPvV':'active','qHevz':_0x209d68(0x1a3)};useScript=![],scriptOffBtn[_0x209d68(0x1a0)][_0x209d68(0x1f1)]('active'),scriptOnBtn['classList'][_0x209d68(0x1a0)][_0x209d68(0x1d4)](_0x7735fb['hsPvV']),scriptSettings[_0x209d68(0x1a0)]['add'](_0x7735fb['qHevz']);},scriptOnBtn[_0x108d7c(0x1fb)]=()=>{const _0x59d896=_0x108d7c,_0x22c0d0={'fxqkR':'active','rxyuR':_0x59d896(0x1a3)};useScript=!![],scriptOffBtn['classList'][_0x59d896(0x1d4)](_0x59d896(0x1ed)),scriptOnBtn[_0x59d896(0x1a0)][_0x59d896(0x1f1)](_0x22c0d0['fxqkR']),scriptSettings[_0x59d896(0x1a0)][_0x59d896(0x1d4)](_0x22c0d0['rxyuR']);},uiCheck[_0x108d7c(0x205)]=()=>{const _0x177a33=_0x108d7c,_0xf76574={'JkMQO':_0x177a33(0x1a3)};uiVersionField[_0x177a33(0x1a0)][_0x177a33(0x19b)](_0xf76574[_0x177a33(0x1e6)],!uiCheck['checked']);};function _0x566a(_0x4a36f1,_0x27466a){_0x4a36f1=_0x4a36f1-0x19b;const _0x105e72=_0x105e();let _0x566abf=_0x105e72[_0x4a36f1];return _0x566abf;}function getValue(_0x585782,_0x46afa1){const _0x416db2=_0x108d7c,_0x133aa9=document['getElementById'](_0x585782)[_0x416db2(0x1be)][_0x416db2(0x1ae)]();return _0x133aa9||_0x46afa1;}function getVersion(_0x2f8683,_0x2db875){const _0x40933d=_0x108d7c,_0xde5f7=document['getElementById'](_0x2f8683),_0xea96e0=_0xde5f7[_0x40933d(0x1be)]['trim']();if(!_0xea96e0)return _0x2db875;if(!/^[0-9]+(\.[0-9]+)*$/[_0x40933d(0x1c8)](_0xea96e0))return _0xde5f7[_0x40933d(0x1be)]='',_0x2db875;return _0xea96e0;}function getScriptVersion(_0x2e2a2a,_0x415ad1){const _0x494ca4=_0x108d7c,_0x427af9={'XDSol':function(_0x131109,_0x177754){return _0x131109===_0x177754;},'tTwjW':_0x494ca4(0x1d6)},_0x394204=document['getElementById'](_0x2e2a2a),_0x45e159=_0x394204['value'][_0x494ca4(0x1ae)]();if(!_0x45e159)return _0x415ad1;if(_0x427af9[_0x494ca4(0x1e3)](_0x45e159,_0x427af9[_0x494ca4(0x201)]))return _0x45e159;if(!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(_0x45e159))return _0x394204['value']='',_0x415ad1;return _0x45e159;}function versionArray(_0x296c21){const _0xce5b52=_0x108d7c;return _0x296c21[_0xce5b52(0x1a6)]('.')[_0xce5b52(0x1ad)](_0x565b4b=>{const _0x38f679=_0xce5b52,_0x4b8c6e=parseInt(_0x565b4b,0xa);return Number[_0x38f679(0x1c5)](_0x4b8c6e)?0x0:_0x4b8c6e;});}function getEntry(){const _0x10bff2=_0x108d7c,_0x319752={'wvkpb':_0x10bff2(0x1a8),'LZflC':_0x10bff2(0x1fc)};let _0x4ca19c=document[_0x10bff2(0x1ef)](_0x319752[_0x10bff2(0x1bd)])[_0x10bff2(0x1be)]['trim']();if(!_0x4ca19c)return _0x10bff2(0x206);return!_0x4ca19c['endsWith'](_0x10bff2(0x1fc))&&(_0x4ca19c+=_0x319752[_0x10bff2(0x1c7)]),_0x4ca19c;}function uuid(){const _0x1c4ce6=_0x108d7c;return crypto[_0x1c4ce6(0x1af)]();}function createBehaviorManifest(_0x596d49,_0x37f948,_0x20e6b3,_0x467ff7,_0x1fa3fc,_0x162844){const _0x56a192=_0x108d7c,_0x5ec326={'vTNwD':function(_0x20b232,_0x23a0f2){return _0x20b232(_0x23a0f2);},'WkUbQ':_0x56a192(0x1ec),'kurWF':function(_0x3a43a7){return _0x3a43a7();},'HEYEE':_0x56a192(0x1ac),'lgbNM':function(_0x46debf,_0xb6d7db,_0x456c29){return _0x46debf(_0xb6d7db,_0x456c29);},'iMhxj':_0x56a192(0x1f9),'jmnfI':'uiVersion','Nlpek':_0x56a192(0x1d0)},_0x32a31b=uuid(),_0xdfa287={'format_version':0x2,'header':{'name':_0x596d49,'description':_0x37f948,'uuid':_0x1fa3fc,'version':versionArray(_0x20e6b3),'min_engine_version':_0x5ec326['vTNwD'](versionArray,_0x467ff7)},'modules':[{'description':_0x37f948,'type':_0x5ec326[_0x56a192(0x1eb)],'uuid':_0x32a31b,'version':versionArray(_0x20e6b3)}]};if(useScript){const _0x3d3de2=_0x5ec326[_0x56a192(0x1aa)](uuid);_0xdfa287[_0x56a192(0x1bf)][_0x56a192(0x1b8)]({'description':_0x56a192(0x1da),'type':_0x56a192(0x1f0),'language':'javascript','uuid':_0x3d3de2,'version':versionArray(_0x20e6b3),'entry':_0x5ec326[_0x56a192(0x1aa)](getEntry)}),_0xdfa287[_0x56a192(0x1df)]=[{'module_name':_0x5ec326[_0x56a192(0x1f6)],'version':_0x5ec326[_0x56a192(0x202)](getScriptVersion,'serverVersion',_0x5ec326[_0x56a192(0x1c2)])}],uiCheck['checked']&&_0xdfa287[_0x56a192(0x1df)][_0x56a192(0x1b8)]({'module_name':_0x56a192(0x1e7),'version':getScriptVersion(_0x5ec326[_0x56a192(0x1a9)],_0x5ec326['Nlpek'])});}return _0x162844&&(!_0xdfa287[_0x56a192(0x1df)]&&(_0xdfa287['dependencies']=[]),_0xdfa287[_0x56a192(0x1df)][_0x56a192(0x1b5)]({'uuid':_0x162844,'version':_0x5ec326[_0x56a192(0x1e2)](versionArray,_0x20e6b3)})),_0xdfa287;}function createResourceManifest(_0x1c3f8b,_0x1482a5,_0x51fecc,_0x108038,_0x3604e2,_0x1c765d){const _0x30d586=_0x108d7c,_0x3be370={'kvxUk':function(_0x1249d4,_0x1faa18){return _0x1249d4(_0x1faa18);},'UekqG':_0x30d586(0x1ca),'SRJbi':function(_0x51c3f6,_0x257909){return _0x51c3f6(_0x257909);}},_0x35120c=uuid(),_0x4ba2ae={'format_version':0x2,'header':{'name':_0x1c3f8b,'description':_0x1482a5,'uuid':_0x3604e2,'version':_0x3be370[_0x30d586(0x1c1)](versionArray,_0x51fecc),'min_engine_version':versionArray(_0x108038)},'modules':[{'description':_0x3be370[_0x30d586(0x1e8)],'type':'resources','uuid':_0x35120c,'version':_0x3be370[_0x30d586(0x1e9)](versionArray,_0x51fecc)}]};return _0x1c765d&&(_0x4ba2ae[_0x30d586(0x1df)]=[{'uuid':_0x1c765d,'version':versionArray(_0x51fecc)}]),_0x4ba2ae;}function createResult(_0x282e35,_0x28953f){const _0x4683de=_0x108d7c,_0x49542d={'UQyto':_0x4683de(0x1c6),'vZrjf':'div','obmcF':'result-title','bVQsO':_0x4683de(0x1fd),'HUjPo':_0x4683de(0x1d1),'PNEHr':_0x4683de(0x1f3)},_0x2b4b4f=document['createElement'](_0x49542d[_0x4683de(0x1a7)]);_0x2b4b4f[_0x4683de(0x1fe)]='result-box';const _0x354102=document[_0x4683de(0x1b1)]('div');_0x354102[_0x4683de(0x1fe)]=_0x49542d[_0x4683de(0x1ee)];const _0x1785c3=document[_0x4683de(0x1b1)](_0x49542d['bVQsO']);_0x1785c3[_0x4683de(0x1cb)]=_0x282e35;const _0x155596=document[_0x4683de(0x1b1)](_0x49542d[_0x4683de(0x1ab)]);_0x155596[_0x4683de(0x1fe)]=_0x4683de(0x1dc),_0x155596['textContent']='コピー';const _0xaa399a=document[_0x4683de(0x1b1)](_0x49542d[_0x4683de(0x1a5)]),_0x39d562=JSON[_0x4683de(0x1d5)](_0x28953f,null,0x2);return _0xaa399a['textContent']=_0x39d562,_0x155596['onclick']=async()=>{const _0xb3fbba=_0x4683de;await navigator[_0xb3fbba(0x1ba)]['writeText'](_0x39d562),_0x155596[_0xb3fbba(0x1cb)]=_0xb3fbba(0x1d8),setTimeout(()=>{const _0x18bc0b=_0xb3fbba;_0x155596[_0x18bc0b(0x1cb)]=_0x49542d['UQyto'];},0x5dc);},_0x354102[_0x4683de(0x1cc)](_0x1785c3),_0x354102[_0x4683de(0x1cc)](_0x155596),_0x2b4b4f['appendChild'](_0x354102),_0x2b4b4f['appendChild'](_0xaa399a),_0x2b4b4f;}document[_0x108d7c(0x1ef)]('generate')['onclick']=()=>{const _0x1d747e=_0x108d7c,_0x36c96a={'HicKv':_0x1d747e(0x1fa),'PqSzI':_0x1d747e(0x1e0),'Cyetw':_0x1d747e(0x1a4),'TTtPl':function(_0x4da5fe,_0x59e8fa,_0xc180fb){return _0x4da5fe(_0x59e8fa,_0xc180fb);},'CwJjZ':_0x1d747e(0x1b2),'rliQI':'1.20.0','ZRiWP':'result','dCkKi':function(_0x3611e7,_0x1db4a4,_0x447a3a,_0x2f2597,_0x41b3c2,_0x2b950f,_0x7ed990){return _0x3611e7(_0x1db4a4,_0x1db4a4,_0x2f2597,_0x41b3c2,_0x2b950f,_0x7ed990);},'coqfo':_0x1d747e(0x1a1),'fxlpQ':function(_0x2f43b5,_0x444602){return _0x2f43b5===_0x444602;},'IGDja':_0x1d747e(0x1d7),'lSqnH':function(_0x5d4b99,_0x576b95){return _0x5d4b99===_0x576b95;},'rEIfg':_0x1d747e(0x1d2),'EyXVT':function(_0x94613b){return _0x94613b();}},_0x41ee9a=getValue(_0x36c96a[_0x1d747e(0x1c4)],_0x36c96a[_0x1d747e(0x1ff)]),_0x610b57=getValue(_0x36c96a[_0x1d747e(0x200)],_0x1d747e(0x203)),_0x742b3=_0x36c96a[_0x1d747e(0x1cd)](getVersion,_0x1d747e(0x1c0),'1.0.0'),_0x3d5153=_0x36c96a['TTtPl'](getVersion,_0x36c96a[_0x1d747e(0x1cf)],_0x36c96a[_0x1d747e(0x1db)]),_0x1f4bfd=document['getElementById'](_0x36c96a[_0x1d747e(0x19e)]);_0x1f4bfd[_0x1d747e(0x1d3)]='';if(packType==='bp'){const _0x574676=uuid(),_0x1d7365=_0x36c96a[_0x1d747e(0x1b3)](createBehaviorManifest,_0x41ee9a,_0x610b57,_0x742b3,_0x3d5153,_0x574676,null);_0x1f4bfd['appendChild'](createResult(_0x36c96a['coqfo'],_0x1d7365));}if(_0x36c96a[_0x1d747e(0x1e5)](packType,'rp')){const _0x29b839=uuid(),_0x2e8d0b=_0x36c96a[_0x1d747e(0x1b3)](createResourceManifest,_0x41ee9a,_0x610b57,_0x742b3,_0x3d5153,_0x29b839,null);_0x1f4bfd['appendChild'](_0x36c96a[_0x1d747e(0x1cd)](createResult,_0x36c96a[_0x1d747e(0x1e1)],_0x2e8d0b));}if(_0x36c96a[_0x1d747e(0x19c)](packType,_0x36c96a[_0x1d747e(0x1d9)])){const _0x539ae6=_0x36c96a[_0x1d747e(0x1bc)](uuid),_0x4f45bb=uuid(),_0x1e527d=createBehaviorManifest(_0x41ee9a,_0x610b57,_0x742b3,_0x3d5153,_0x539ae6,_0x4f45bb),_0x4f8498=createResourceManifest(_0x41ee9a,_0x610b57,_0x742b3,_0x3d5153,_0x4f45bb,_0x539ae6);_0x1f4bfd[_0x1d747e(0x1cc)](_0x36c96a[_0x1d747e(0x1cd)](createResult,_0x1d747e(0x1a1),_0x1e527d)),_0x1f4bfd[_0x1d747e(0x1cc)](createResult(_0x1d747e(0x1d7),_0x4f8498));}};
+let packType="bp";
+let useScript=false;
+
+const bpBtn=document.getElementById("bpBtn");
+const rpBtn=document.getElementById("rpBtn");
+const bothBtn=document.getElementById("bothBtn");
+
+const scriptSection=document.getElementById("scriptSection");
+const scriptOffBtn=document.getElementById("scriptOffBtn");
+const scriptOnBtn=document.getElementById("scriptOnBtn");
+const scriptSettings=document.getElementById("scriptSettings");
+
+const uiCheck=document.getElementById("uiCheck");
+const uiVersionField=document.getElementById("uiVersionField");
+
+function setPackType(type){
+  packType=type;
+
+  bpBtn.classList.toggle("active",type==="bp");
+  rpBtn.classList.toggle("active",type==="rp");
+  bothBtn.classList.toggle("active",type==="both");
+
+  if(type==="rp"){
+    scriptSection.classList.add("hidden");
+    useScript=false;
+    scriptOffBtn.classList.add("active");
+    scriptOnBtn.classList.remove("active");
+    scriptSettings.classList.add("hidden");
+  }else{
+    scriptSection.classList.remove("hidden");
+  }
+}
+
+bpBtn.onclick=()=>setPackType("bp");
+rpBtn.onclick=()=>setPackType("rp");
+bothBtn.onclick=()=>setPackType("both");
+
+scriptOffBtn.onclick=()=>{
+  useScript=false;
+  scriptOffBtn.classList.add("active");
+  scriptOnBtn.classList.remove("active");
+  scriptSettings.classList.add("hidden");
+};
+
+scriptOnBtn.onclick=()=>{
+  useScript=true;
+  scriptOffBtn.classList.remove("active");
+  scriptOnBtn.classList.add("active");
+  scriptSettings.classList.remove("hidden");
+};
+
+uiCheck.onchange=()=>{
+  uiVersionField.classList.toggle("hidden",!uiCheck.checked);
+};
+
+function getValue(id,defaultValue){
+  const value=document.getElementById(id).value.trim();
+  return value||defaultValue;
+}
+
+function getVersion(id,defaultValue){
+  const input=document.getElementById(id);
+  const value=input.value.trim();
+
+  if(!value){
+    return defaultValue;
+  }
+
+  if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+    input.value="";
+    return defaultValue;
+  }
+
+  return value;
+}
+
+function getScriptVersion(id,defaultValue){
+  const input=document.getElementById(id);
+  const value=input.value.trim();
+
+  if(!value){
+    return defaultValue;
+  }
+
+  if(value==="beta"){
+    return value;
+  }
+
+  if(!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
+    input.value="";
+    return defaultValue;
+  }
+
+  return value;
+}
+
+function versionArray(value){
+  return value.split(".").map(v=>{
+    const n=parseInt(v,10);
+    return Number.isNaN(n)?0:n;
+  });
+}
+
+function getEntry(){
+  let entry=document.getElementById("entry").value.trim();
+
+  if(!entry){
+    return "main.js";
+  }
+
+  if(!entry.endsWith(".js")){
+    entry+=".js";
+  }
+
+  return entry;
+}
+
+function uuid(){
+  return crypto.randomUUID();
+}
+
+function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
+
+  const bpModuleUuid=uuid();
+
+  const manifest={
+    format_version:2,
+    header:{
+      name:name,
+      description:description,
+      uuid:bpUuid,
+      version:versionArray(version),
+      min_engine_version:versionArray(engine)
+    },
+    modules:[
+      {
+        description:description,
+        type:"data",
+        uuid:bpModuleUuid,
+        version:versionArray(version)
+      }
+    ]
+  };
+
+  if(useScript){
+
+    const scriptUuid=uuid();
+
+    manifest.modules.push({
+      description:"Script",
+      type:"script",
+      language:"javascript",
+      uuid:scriptUuid,
+      version:versionArray(version),
+      entry:getEntry()
+    });
+
+    manifest.dependencies=[
+      {
+        module_name:"@minecraft/server",
+        version:getScriptVersion("serverVersion","2.7.0")
+      }
+    ];
+
+    if(uiCheck.checked){
+
+      manifest.dependencies.push({
+        module_name:"@minecraft/server-ui",
+        version:getScriptVersion("uiVersion","1.1.0")
+      });
+
+    }
+  }
+
+  if(rpUuid){
+
+    if(!manifest.dependencies){
+      manifest.dependencies=[];
+    }
+
+    manifest.dependencies.unshift({
+      uuid:rpUuid,
+      version:versionArray(version)
+    });
+
+  }
+
+  return manifest;
+}
+
+function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
+
+  const rpModuleUuid=uuid();
+
+  const manifest={
+    format_version:2,
+    header:{
+      name:name,
+      description:description,
+      uuid:rpUuid,
+      version:versionArray(version),
+      min_engine_version:versionArray(engine)
+    },
+    modules:[
+      {
+        description:"Resources",
+        type:"resources",
+        uuid:rpModuleUuid,
+        version:versionArray(version)
+      }
+    ]
+  };
+
+  if(bpUuid){
+
+    manifest.dependencies=[
+      {
+        uuid:bpUuid,
+        version:versionArray(version)
+      }
+    ];
+
+  }
+
+  return manifest;
+}
+
+function createResult(title,data){
+
+  const box=document.createElement("div");
+  box.className="result-box";
+
+  const titleBar=document.createElement("div");
+  titleBar.className="result-title";
+
+  const titleText=document.createElement("span");
+  titleText.textContent=title;
+
+  const copy=document.createElement("button");
+  copy.className="copy-btn";
+  copy.textContent="コピー";
+
+  const pre=document.createElement("pre");
+
+  const text=JSON.stringify(data,null,2);
+
+  pre.textContent=text;
+
+  copy.onclick=async()=>{
+    await navigator.clipboard.writeText(text);
+    copy.textContent="コピーしました";
+
+    setTimeout(()=>{
+      copy.textContent="コピー";
+    },1500);
+  };
+
+  titleBar.appendChild(titleText);
+  titleBar.appendChild(copy);
+
+  box.appendChild(titleBar);
+  box.appendChild(pre);
+
+  return box;
+}
+
+document.getElementById("generate").onclick=()=>{
+
+  const name=getValue("name","アドオン名");
+  const description=getValue("description","アドオン説明文");
+  const version=getVersion("version","1.0.0");
+  const engine=getVersion("engine","1.20.0");
+
+  const result=document.getElementById("result");
+
+  result.innerHTML="";
+
+  if(packType==="bp"){
+
+    const bpUuid=uuid();
+
+    const bp=createBehaviorManifest(
+      name,
+      description,
+      version,
+      engine,
+      bpUuid,
+      null
+    );
+
+    result.appendChild(
+      createResult("ビヘイビアパック",bp)
+    );
+
+  }
+
+  if(packType==="rp"){
+
+    const rpUuid=uuid();
+
+    const rp=createResourceManifest(
+      name,
+      description,
+      version,
+      engine,
+      rpUuid,
+      null
+    );
+
+    result.appendChild(
+      createResult("リソースパック",rp)
+    );
+
+  }
+
+  if(packType==="both"){
+
+    const bpUuid=uuid();
+    const rpUuid=uuid();
+
+    const bp=createBehaviorManifest(
+      name,
+      description,
+      version,
+      engine,
+      bpUuid,
+      rpUuid
+    );
+
+    const rp=createResourceManifest(
+      name,
+      description,
+      version,
+      engine,
+      rpUuid,
+      bpUuid
+    );
+
+    result.appendChild(
+      createResult("ビヘイビアパック",bp)
+    );
+
+    result.appendChild(
+      createResult("リソースパック",rp)
+    );
+
+  }
+
+};
 </script>
+
 </body>
 </html>
